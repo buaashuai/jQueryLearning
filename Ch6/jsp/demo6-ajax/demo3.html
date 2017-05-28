@@ -17,19 +17,21 @@ border:0;
 <script src="../scripts/jquery.js" type="text/javascript"></script>
  <script>
    $(function(){
+       var url1="http://just.baidu.com/restapi/public/topiclist?version=1.0";
+       var url = url1;
 
-        $('#send').click(function() {
+       $('#send').click(function() {
             $.ajax({
 			  type: "GET",
-			  url: "http://api.flickr.com/services/feeds/photos_public.gne?tags=car&tagmode=any&format=json&jsoncallback=?",
+			  url: url,
 			  dataType: "jsonp",
 			  success : function(data){
-						  $.each(data.items, function( i,item ){
-								$("<img class='para'/> ").attr("src", item.media.m ).appendTo("#resText");
-								if ( i == 3 ) { 
-									return false;
-								}
-					      });
+                  console.log(data);
+                  console.log(data.response_params.topic_list);
+                  $.each(data.response_params.topic_list,function(index,item){
+                      var title =item.title;
+                      console.log(title);
+                  })
 		          }
 			}); 
         });
